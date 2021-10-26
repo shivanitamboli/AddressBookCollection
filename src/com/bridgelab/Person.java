@@ -23,7 +23,9 @@ public class Person {
 		this.zip = zip;
 	}
 
-	/* Getters and setters to return and set or update the value */
+	/*
+	 * Getters and setters to return and set or update the value
+	 */
 	public String getFirstName() {
 		return firstName;
 	}
