@@ -22,4 +22,10 @@ public interface AddressBookInfo {
 
 	public void sortAlphabetically(String firstName);
 
+	public void sortZip();
+
+	public void sortCity();
+
+	public void sortState();
+
 }
