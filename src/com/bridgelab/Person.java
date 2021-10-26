@@ -1,90 +1,66 @@
 package com.bridgelab;
 
-class Person {
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
 
-	// variables
-	private String firstName;
-	private String lastName;
-	private String address;
-	private String city;
-	private String state;
-	private long phoneNumber;
-	private String zip;
+public class FileIO {
+	public void writeData(Map<String, AddressBook> addressBook) {
+		File file = new File("C:\\Users\\tambo\\Desktop\\AddressBookSystem");
+		BufferedWriter bw = null;
+		;
+		try {
+			// create new BufferedWriter for the output file
+			bw = new BufferedWriter(new FileWriter(file));
 
-	public Person(String firstName, String lastName, String address, String city, String state, long phoneNumber,
-			String zip) {
+			// iterate map entries
+			for (Map.Entry<String, AddressBook> entry : addressBook.entrySet()) {
+				// put key and value separated by a colon
+				bw.write(entry.getKey() + ":" + entry.getValue());
 
-		// constructor
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.address = address;
-		this.city = city;
-		this.state = state;
-		this.phoneNumber = phoneNumber;
-		this.zip = zip;
+				// new line
+				bw.newLine();
+			}
+			bw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	/* Getters and setters to return and set or update the value */
-	public String getFirstName() {
-		return firstName;
-	}
+	// public List<Contacts> readData() {
+	public static Map<String, String> readData() {
+		Map<String, String> mapFileContents = new HashMap<>();
+		BufferedReader br = null;
+		try {
+			// create file object
+			File file = new File("Address Book.txt");
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+			// create BufferedReader object from the File
+			br = new BufferedReader(new FileReader(file));
 
-	public String getLastName() {
-		return lastName;
-	}
+			String line = null;
+			// read file line by line
+			while ((line = br.readLine()) != null) {
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+				// split the line by :
+				String[] parts = line.split(":");
 
-	public String getAddress() {
-		return address;
-	}
+				String bookName = parts[0].trim();
+				String fname = parts[1].trim();
+				mapFileContents.put(bookName, fname);
+			}
 
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public long getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(long phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
-
-	public String getZip() {
-		return zip;
-	}
-
-	public void setZip(String zip) {
-		this.zip = zip;
-	}
-
-	@Override
-	public String toString() {
-		return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", address='" + address
-				+ '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", phoneNumber=" + phoneNumber
-				+ ", zip=" + zip + '}';
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// Always close the BufferedReader
+			if (br != null) {
+				try {
+					br.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+		return mapFileContents;
 	}
 }

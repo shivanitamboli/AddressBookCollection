@@ -1,0 +1,2 @@
+family[PersonInfo{first_name='Sakshi', last_name='Shetty', address='SSLayout', city='Mumbai', state='Maharashtra', zip=400095, phone_number='9167073122', email='abc@gmail.com'}]
+friends[PersonInfo{first_name='Sia', last_name='Shetty', address='samukhe', city='Mum', state='mhtaa', zip=5202145, phone_number='5452665478', email='abc.com'}]
