@@ -8,8 +8,6 @@ public interface AddressBookInfo {
 
 	public void delete(String firstName);
 
-	public void sortAlphabetically(String firstName);
-
 	public void searchPersonInState(String firstName);
 
 	public void searchPersonInCity(String firstName);
@@ -21,5 +19,7 @@ public interface AddressBookInfo {
 	public void countByCity(String city);
 
 	public void countByState(String state);
+
+	public void sortAlphabetically(String firstName);
 
 }
