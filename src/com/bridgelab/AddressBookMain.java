@@ -1,5 +1,7 @@
 package com.bridgelab;
 
+import java.util.Scanner;
+
 public class AddressBookMain {
 	private void options() {
 		boolean status = true;
@@ -15,7 +17,7 @@ public class AddressBookMain {
 		while (status) {
 			System.out.println("Hello Enter your option to perform actions: \n Press 1 to Add new person"
 					+ "\n Press 2 to Update/edit details \n Press 3 to Display details \n Press 4 to Delete details "
-					+ " \n Press 5 to Sort the details according to person firstname \n Press 9 to quit");
+					+ " \n Press 5 to Sort the details according to person firstname \n Press 6 to Search on the basis of state or city \nPress 9 to Quit");
 			int choice = scan.nextInt();
 			switch (choice) {
 			case 1:
@@ -36,13 +38,30 @@ public class AddressBookMain {
 				break;
 			case 5:
 				System.out.println("Sorted Person details: ");
-
-				addressBook.sortAlphabetically();
+				firstname = scan.next();
+				addressBook.sortAlphabetically(firstname);
 				break;
+			case 6:
+				System.out.println("Hi!! on what basis you would like to sort the details \nPress 1 to Seach "
+						+ "on the basis of City\nPress 2 to Search on the basis of State\n");
+				int optionToSort = scan.nextInt();
+				if (optionToSort == 1) {
+					System.out.println("Enter person firstname");
+					firstname = scan.next();
+					addressBook.searchPersonInState(firstname);
+					break;
+				} else {
+					firstname = scan.next();
+					addressBook.searchPersonInCity(firstname);
+					break;
+				}
 			default:
 				status = false;
+
 			}
+
 		}
+
 	}
 
 	/* Main method to call options */

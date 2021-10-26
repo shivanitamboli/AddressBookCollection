@@ -8,5 +8,10 @@ public interface AddressBookInfo {
 
 	public void delete(String firstName);
 
-	public void sortAlphabetically();
+	public void sortAlphabetically(String firstName);
+
+	public void searchPersonInState(String firstName);
+
+	public void searchPersonInCity(String firstName);
+
 }

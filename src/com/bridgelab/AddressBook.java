@@ -1,7 +1,9 @@
 package com.bridgelab;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 //AddressBook implements AddressBookInfo
 public class AddressBook implements AddressBookInfo {
@@ -89,7 +91,7 @@ public class AddressBook implements AddressBookInfo {
 	}
 
 	@Override
-	public void sortAlphabetically() {
+	public void sortAlphabetically(String firstName) {
 		book.stream().sorted((p1, p2) -> p1.getFirstName().compareToIgnoreCase(p2.getFirstName()))
 				.forEach(System.out::println);
 
@@ -98,9 +100,26 @@ public class AddressBook implements AddressBookInfo {
 		// System.out.println(book);
 	}
 
-	// Display the person details added
+	public void searchPersonInCity(String firstName) {
+		List<Person> people = book.stream().filter(person1 -> person1.getFirstName().equalsIgnoreCase(firstName))
+				.collect(Collectors.toList());
+
+		for (Person person : people) {
+			System.out.println(person.getFirstName() + "->" + person.getCity());
+		}
+	}
+
+	public void searchPersonInState(String firstName) {
+		List<Person> people = book.stream().filter(person1 -> person1.getFirstName().equalsIgnoreCase(firstName))
+				.collect(Collectors.toList());
+		for (Person person : people) {
+			System.out.println(person.getFirstName() + "->" + person.getState());
+		}
+	}
+
 	public void display() {
 		for (Person person : book)
 			System.out.println(person);
 	}
+
 }
