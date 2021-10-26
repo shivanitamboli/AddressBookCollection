@@ -1,6 +1,7 @@
 package com.bridgelab;
 
-public class Person {
+class Person {
+
 	// variables
 	private String firstName;
 	private String lastName;
@@ -23,9 +24,7 @@ public class Person {
 		this.zip = zip;
 	}
 
-	/*
-	 * Getters and setters to return and set or update the value
-	 */
+	/* Getters and setters to return and set or update the value */
 	public String getFirstName() {
 		return firstName;
 	}
@@ -82,6 +81,7 @@ public class Person {
 		this.zip = zip;
 	}
 
+	@Override
 	public String toString() {
 		return "Person{" + "firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", address='" + address
 				+ '\'' + ", city='" + city + '\'' + ", state='" + state + '\'' + ", phoneNumber=" + phoneNumber
