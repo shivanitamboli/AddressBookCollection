@@ -117,6 +117,24 @@ public class AddressBook implements AddressBookInfo {
 		}
 	}
 
+	public void viewByCity(String city) {
+
+		List<Person> people = book.stream().filter(person1 -> person1.getCity().equalsIgnoreCase(city))
+				.collect(Collectors.toList());
+		for (Person person : people) {
+			System.out.println(person);
+		}
+
+	}
+
+	public void viewByState(String state) {
+		List<Person> people = book.stream().filter(person1 -> person1.getState().equalsIgnoreCase(state))
+				.collect(Collectors.toList());
+		for (Person person : people) {
+			System.out.println(person);
+		}
+	}
+
 	public void display() {
 		for (Person person : book)
 			System.out.println(person);
