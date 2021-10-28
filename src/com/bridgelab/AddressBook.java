@@ -1,66 +1,64 @@
 package com.bridgelab;
 
+import java.util.Scanner;
 import java.util.*;
 
 public class AddressBook {
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		AddressBookMain book = new AddressBookMain();
-		Map<String, AddressBookMain> map = new HashMap<>();
-		Map<String, AddressBook> addressBookMap = new HashMap<>();
+	private static final int ADD = 1;
+	private static final int EDIT = 2;
+	private static final int DELETE = 3;
+	private static final int DISPLAY = 4;
+	private static final int SEARCH_CITY = 5;
+	private static final int SORT_DATA = 6;
+	private static final int QUIT = 7;
+	static AddressBookMain add_Book = new AddressBookMain();
+	static Scanner input = new Scanner(System.in);
 
-		while (true) {
-			System.out.println("Welcome to Address Book System");
-			System.out.println(
-					"Enter your choice \n1. New Address Book \n2. Select Address Book \n3. Delete Address Book \n4. Search Contact Data \n5. view Contact details \n6.count contacts \n7.Write Data \n8.Read Data \n9.Exit");
-			int choice = sc.nextInt();
-			sc.nextLine();
-			switch (choice) {
-			case 1:
-				System.out.println("Enter Name of new Address Book: ");
-				String bookName = sc.next();
-				map.put(bookName, new AddressBookMain());// adding bookName as a key and value is allocating
-				AddressBookMain.addressBookOptions(map.get(bookName));
-				break;
-			case 2:
-				System.out.println("Available Address Books are : ");
-				Set<String> keys = map.keySet();
-				Iterator<String> i = keys.iterator();
-				while (i.hasNext()) {
-					System.out.println(i.next());
-				}
-				System.out.println("Enter Address Book name you want to Open : ");
-				String name = sc.nextLine();
-				System.out.println("Current Address Book is : " + name);
-				AddressBookMain.addressBookOptions(map.get(name));// call method with passing address book name
-				break;
-			case 3:
-				System.out.println("Enter Address Book name to be delete: ");
-				name = sc.nextLine();
-				map.remove(name);// delete hashmap using remove function
-				break;
-			case 4:
-				book.searchByOptions();
-			case 5:
-				AddressBookMain.viewByOption(map);
-				break;
-			case 6:
-				AddressBookMain.countByOption();
-				break;
-			case 7:
-				FileIO fileIO = new FileIO();
-				fileIO.writeData(addressBookMap);
-				break;
-			case 8:
-				FileIO fileIORead = new FileIO();
-				System.out.println(fileIORead.readData());
-				break;
-			case 9:
-				sc.close();
-				return;
+	public static void main(String args[]) {
+		Hashtable<String, ArrayList<contactInfo>> personInfoDict = new Hashtable<>();
+		ReadWriteOperations readWriteObj = new ReadWriteOperations();
+		ReadWriteCSVFile csvObj = new ReadWriteCSVFile();
 
-			default:
-				System.out.println("Please enter a valid option");
+		boolean flag = true;
+		int option;
+		while (flag) {
+			option = UserInputOutput.menu();
+			switch (option) {
+			case ADD:
+				System.out.println("\n" + "Add a new Address Book");
+				personInfoDict = add_Book.insertContactDetails();
+				readWriteObj.writeInAddressBook(personInfoDict);
+				csvObj.writeCSVFile(personInfoDict);
+				break;
+			case EDIT:
+				System.out.print("\n" + "Enter the name of the Address Book that you want to replace: ");
+				String companyName = input.next();
+
+				add_Book.updateContact(companyName, personInfoDict);
+				break;
+			case DELETE:
+				System.out.print("\n" + "Enter the name of the Address Book that you want to delete: ");
+				String deletedName = input.next();
+				add_Book.deleteContact(deletedName, personInfoDict);
+				break;
+			case DISPLAY:
+				System.out.println("\n" + "Display all contacts in the Address Book");
+				readWriteObj.readFromAddressBook();
+				csvObj.readCSVFile();
+				break;
+			case SEARCH_CITY:
+				System.out.println("\n" + "Search Address Book based on City or State");
+				add_Book.searchPerson();
+				flag = true;
+				break;
+			case SORT_DATA:
+				System.out.println("\n" + "Sort Address Book");
+				add_Book.sortPerson();
+				flag = true;
+				break;
+			case QUIT:
+				flag = false;
+				System.out.println("\n" + "Thank you for referring the address book.");
 				break;
 			}
 		}
